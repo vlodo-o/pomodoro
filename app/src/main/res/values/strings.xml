@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Pomodoro</string>
+    <string name="zero_timer">00:00</string>
+</resources>
