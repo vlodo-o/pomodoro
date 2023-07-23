@@ -29,10 +29,8 @@ class PomodoroTimer {
                     mainThreadHandler.postDelayed(this, DURATION_UPDATE_DELAY_MS)
                 }
                 else {
-                    millisecondsLeft = timerDuration
-                    _timerProgress.value = millisecondsToString(millisecondsLeft)
                     _timerState.value = TimerState.ENDED
-                    mainThreadHandler.removeCallbacks(runnable)
+                    stopTimer()
                 }
             }
         }
@@ -45,6 +43,13 @@ class PomodoroTimer {
 
     fun pauseTimer() {
         mainThreadHandler.removeCallbacks(runnable)
+        _timerState.value = TimerState.PAUSE
+    }
+
+    fun stopTimer() {
+        mainThreadHandler.removeCallbacks(runnable)
+        millisecondsLeft = timerDuration
+        _timerProgress.value = millisecondsToString(millisecondsLeft)
         _timerState.value = TimerState.PAUSE
     }
 

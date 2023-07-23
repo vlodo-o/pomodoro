@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     var timerState: TimerState = TimerState.PAUSE
     lateinit var timerTextView: TextView
     lateinit var startButton: FloatingActionButton
+    lateinit var resetButton: Button
 
     private val timer = PomodoroTimer()
 
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 TimerState.ENDED -> {
                     startButton.setImageResource(R.drawable.ic_play)
-                    Toast.makeText(this, "Время работы закончено, пора сделать перерыв!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.work_timer_ended), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
         timerTextView = findViewById(R.id.timer_textview)
         startButton = findViewById(R.id.start_button)
+        resetButton = findViewById(R.id.reset_button)
     }
 
     private fun setListeners() {
@@ -55,6 +57,10 @@ class MainActivity : AppCompatActivity() {
             else {
                 timer.startTimer()
             }
+        }
+
+        resetButton.setOnClickListener {
+            timer.stopTimer()
         }
     }
 

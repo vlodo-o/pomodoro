@@ -31,4 +31,15 @@
         app:layout_constraintTop_toBottomOf="@+id/timer_textview"
         app:maxImageSize="60dp" />
 
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/reset_timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

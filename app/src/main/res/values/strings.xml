@@ -2,4 +2,6 @@
     <string name="app_name">Pomodoro</string>
     <string name="zero_timer">00:00</string>
     <string name="full_timer">25:00</string>
+    <string name="reset_timer">Сбросить таймер</string>
+    <string name="work_timer_ended">Время работы закончено, пора сделать перерыв!</string>
 </resources>
