@@ -9,7 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    var timerState: Boolean = false
+    var timerState: TimerState = TimerState.PAUSE
     lateinit var timerTextView: TextView
     lateinit var startButton: FloatingActionButton
 
@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setListeners()
 
         timer.timerState.observe(this) { state ->
+            timerState = state
             when (state) {
                 TimerState.PAUSE -> {
                     startButton.setImageResource(R.drawable.ic_play)
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListeners() {
         startButton.setOnClickListener {
-            if (timerState) {
+            if (timerState == TimerState.RUNNING) {
                 timer.pauseTimer()
             }
             else {
