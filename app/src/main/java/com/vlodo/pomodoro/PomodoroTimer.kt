@@ -13,8 +13,8 @@ class PomodoroTimer {
     private val mainThreadHandler = Handler(Looper.getMainLooper())
     private var runnable = getRunnable()
 
-    private val _timerState = MutableLiveData<Boolean>()
-    val timerState: LiveData<Boolean> = _timerState
+    private val _timerState = MutableLiveData<TimerState>()
+    val timerState: LiveData<TimerState> = _timerState
 
     private val _timerProgress = MutableLiveData<String>()
     val timerProgress: LiveData<String> = _timerProgress
@@ -32,7 +32,7 @@ class PomodoroTimer {
                     pauseTimer()
                     millisecondsLeft = timerDuration
                     _timerProgress.value = millisecondsToString(millisecondsLeft)
-                    _timerState.value = false
+                    _timerState.value = TimerState.ENDED
                 }
             }
         }
@@ -40,12 +40,12 @@ class PomodoroTimer {
 
     fun startTimer() {
         mainThreadHandler.postDelayed(runnable, DURATION_UPDATE_DELAY_MS)
-        _timerState.value = true
+        _timerState.value = TimerState.RUNNING
     }
 
     fun pauseTimer() {
         mainThreadHandler.removeCallbacks(runnable)
-        _timerState.value = false
+        _timerState.value = TimerState.PAUSE
     }
 
     fun millisecondsToString(duration: Long): String {

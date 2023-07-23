@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var timerTextView: TextView
     lateinit var startButton: FloatingActionButton
 
-    val timer = PomodoroTimer()
+    private val timer = PomodoroTimer()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,12 +22,17 @@ class MainActivity : AppCompatActivity() {
         setListeners()
 
         timer.timerState.observe(this) { state ->
-            timerState = state
-            if (timerState) {
-                startButton.setImageResource(R.drawable.ic_pause)
-            }
-            else {
-                startButton.setImageResource(R.drawable.ic_play)
+            when (state) {
+                TimerState.PAUSE -> {
+                    startButton.setImageResource(R.drawable.ic_play)
+                }
+                TimerState.RUNNING -> {
+                    startButton.setImageResource(R.drawable.ic_pause)
+                }
+                TimerState.ENDED -> {
+                    startButton.setImageResource(R.drawable.ic_play)
+                    Toast.makeText(this, "Время работы закончено, пора сделать перерыв!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
